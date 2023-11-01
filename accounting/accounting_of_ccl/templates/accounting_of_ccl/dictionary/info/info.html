@@ -1,0 +1,51 @@
+{% extends 'accounting_of_ccl/base.html' %}
+{% block main %}
+
+    {% if model.exists %}
+        <div class="container">
+            <div class="display-4 py-4">
+                Информация - [{{ title }}]
+            </div>
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        {% for item in model.0.get_fields.values %}
+                            {% for header in item %}
+                                <th>{{ header }}</th>
+                            {% endfor %}
+                        {% endfor %}
+                        <th></th>
+                    </tr>
+                </thead>
+                {% for items in model %}
+                    <tr>
+                        {% for item in items.get_fields.values %}
+                            {% for key, value in item.items %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                        {% endfor %}
+                        <td class="col-2">
+                            <div>
+                                {% if ref %}
+                                    <a class="btn btn-outline-danger" href="{% url 'dictionary_delete' model_type items.id %}">Удалить</a>
+                                {% else %}
+                                    <div>
+                                        <a class="btn btn-outline-warning"  href="{% url 'dictionary_edit' model_type items.id %}">Изменить</a>
+                                        <a class="btn btn-outline-danger"  href="{% url 'dictionary_delete' model_type items.id %}">Удалить</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <div class="container">
+            <div class="display-1">
+                Список пуст
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

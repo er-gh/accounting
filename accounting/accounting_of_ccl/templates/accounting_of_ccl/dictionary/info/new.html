@@ -1,0 +1,25 @@
+{% extends 'accounting_of_ccl/base.html' %}
+
+{% block main %}
+    <div class="container">
+        <div class="display-4 py-4">
+            {{ action_type }} элемент
+        </div>
+        <table class="table table-bordered table-hover">
+            {% for verbose_name, model_name in models_obj.items %}
+                <tr>
+                    <td>{{ verbose_name }}</td>
+                    <td class="col-1">
+                        <a href="   {% if action_type == 'Добавить' %}
+                                        {% url 'dictionary_new' model_name %}" class="btn btn-outline-success">Добавить</a>
+                                    {% elif action_type == 'Редактировать' %}
+                                        {% url 'dictionary_info' model_name %}">Перейти</a>
+                                    {% elif action_type == 'Удалить' %}
+                                        {% url 'dictionary_info' model_name %}">Перейти</a>
+                                    {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

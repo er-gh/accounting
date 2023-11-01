@@ -1,0 +1,43 @@
+{% extends 'accounting_of_ccl/base.html' %}
+{% load static %}
+
+{% block main %}
+    <div class="container">
+        <div class="display-4 py-4">
+            Главная
+        </div>
+        <table class="table table-bordered table-hover table-responsive">
+            <thead class="table-light">
+                <tr>
+                    <th>Тип</th>
+                    <th>Количество</th>
+                    <th class="col-lg-2 col-md-3"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for model_name, value in models_obj.items %}
+                    <tr>
+                        <td>{{ model_name }}</td>
+                        <td>{{ value.1 }}</td>
+                        <td>
+                            <div class="btn-group btn-group-xxl">
+                                <a href="{% url 'dictionary_info' value.0 %}" class="btn btn-outline-info">
+                                    <img class="mx-auto d-block"
+                                         src="{% static 'accounting_of_ccl/img/info.png' %}"
+                                         alt="[i]"
+                                         style="width: 50%;">
+                                </a>
+                                <a href="{% url 'dictionary_new' value.0 %}" class="btn btn-outline-success">
+                                    <img class="mx-auto d-block"
+                                         src="{% static 'accounting_of_ccl/img/add.png' %}"
+                                         alt="[+]"
+                                         style="width: 50%;">
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'accounting_of_ccl/base.html' %}
+
+{% block main %}
+    <div class="container">
+        <div class="display-4 py-4">
+            Удаление - [{{ model_name }}]
+        </div>
+        <div class="col-xl-6">
+            <form method="POST" class="h-100 p-5 text-bg-dark rounded-3">
+                {% csrf_token %}
+                <h2>
+                    Информация
+                </h2>
+                {% for key, field in model_inst_fields.items %}
+                    {% for field_name, value in field.items %}
+                        <p>{{ field_name }}: {{ value }}</p>
+                    {% endfor %}
+                {% endfor %}
+                <button type="submit" class="btn btn-outline-danger">Удалить</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
